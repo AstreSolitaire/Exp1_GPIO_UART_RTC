@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ProjectOpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_optx.xsd">
+
+  <SchemaVersion>2.1</SchemaVersion>
+
+  <Header>### uVision Project, (C) Keil Software</Header>
+
+  <Extensions>
+    <cExt>*.c</cExt>
+    <aExt>*.s*; *.src; *.a*</aExt>
+    <oExt>*.obj; *.o</oExt>
+    <lExt>*.lib; *.a; *.lnk</lExt>
+    <tExt>*.txt; *.h; *.inc; *.md</tExt>
+    <pExt>*.plm; *.p51; *.cpp</pExt>
+    <CppExt>*.cpp</CppExt>
+    <DebOptExt>*.dbg</DebOptExt>
+  </Extensions>
+
+  <DebugOpt>
+    <uSim>0</uSim>
+    <uTrg>1</uTrg>
+    <sLdApp>1</sLdApp>
+    <sGomain>1</sGomain>
+    <sRstop>1</sRstop>
+    <sGodebug>1</sGodebug>
+    <sLdopt>1</sLdopt>
+    <sSanSupp>0</sSanSupp>
+    <sDBLimit>0</sDBLimit>
+    <UseCppDdb>0</UseCppDdb>
+    <Lv2DB>0</Lv2DB>
+    <Um2Dbg>0</Um2Dbg>
+    <uTtxt>0</uTtxt>
+    <Ttext>0x08000000</Ttext>
+    <Ttgs>0</Ttgs>
+    <nTsel>6</nTsel>
+    <pMon>STLink\ST-LINKIII-KEIL_SWO.dll</pMon>
+  </DebugOpt>
+
+  <Utilities>
+    <Flash1>
+      <UseTargetDll>1</UseTargetDll>
+      <UseExternalTool>0</UseExternalTool>
+      <RunIndependent>0</RunIndependent>
+      <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
+      <Capability>1</Capability>
+      <DriverSelection>4107</DriverSelection>
+    </Flash1>
+    <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
+    <Flash3></Flash3>
+    <Flash4></Flash4>
+  </Utilities>
+
+  <TargetDriverDllRegistry>
+    <SetRegEntry>
+      <Number>0</Number>
+      <Key>ST-LINKIII-KEIL_SWO</Key>
+      <Name>-U0670FF515482494867213908 -O2254 -S8 -C0 -P00 -TO18 -TC1000000000 -TP1000000000 -TDS8007 -TDT0 -TDC1 -TDT1000 -TDS1000 -TLO0 -TDO1 -TMT0 -JS4500 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000</Name>
+    </SetRegEntry>
+  </TargetDriverDllRegistry>
+
+  <Breakpoints>
+    <Bp>
+      <Number>0</Number>
+      <Type>0</Type>
+      <LineNumber>170</LineNumber>
+      <EnabledFlag>0</EnabledFlag>
+      <Address>0</Address>
+      <ByteObject>0</ByteObject>
+      <HtlType>0</HtlType>
+      <ManyObjects>0</ManyObjects>
+      <SizeOfObject>0</SizeOfObject>
+      <BreakIfHit>0</BreakIfHit>
+      <FileName>..\Core\Src\main.c</FileName>
+      <DynAddress>0</DynAddress>
+    </Bp>
+  </Breakpoints>
+
+  <DebugFlag>
+    <Trace>0</Trace>
+    <Periodic>1</Periodic>
+    <Awin>0</Awin>
+    <ADet>0</ADet>
+    <Adv>0</Adv>
+    <Dwint>0</Dwint>
+    <Avce>0</Avce>
+  </DebugFlag>
+
+</ProjectOpt>

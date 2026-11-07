@@ -1,0 +1,15 @@
+# Keil build temp files (keep hex/bin/axf/map outputs)
+*.o
+*.crf
+*.d
+*.lst
+*.dep
+*.lnp
+*.sct
+*.htm
+*.dbgconf
+*.bak
+*.log
+tools/logs/
+tools/gui_bg.log
+RTE/
