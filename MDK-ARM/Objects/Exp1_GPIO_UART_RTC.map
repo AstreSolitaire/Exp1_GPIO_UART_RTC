@@ -1096,7 +1096,7 @@ Image Symbol Table
     x$fpl$fpinit                             0x08002610   Section       10  fpinit.o(x$fpl$fpinit)
     $v0                                      0x08002610   Number         0  fpinit.o(x$fpl$fpinit)
     .constdata                               0x0800261a   Section        8  main.o(.constdata)
-    s_ledPins                                0x0800261a   Data           8  main.o(.constdata)
+    s_ledRing                                0x0800261a   Data           8  main.o(.constdata)
     .constdata                               0x08002622   Section       16  system_stm32f4xx.o(.constdata)
     .constdata                               0x08002632   Section        8  system_stm32f4xx.o(.constdata)
     .constdata                               0x0800263a   Section       17  __printf_flags_ss_wp.o(.constdata)

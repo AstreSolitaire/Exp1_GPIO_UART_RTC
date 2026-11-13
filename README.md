@@ -32,12 +32,28 @@
 | 实验要求 | 实现位置 | 实现方式 |
 |---|---|---|
 | 系统时钟配置为 168 MHz | `Core/Src/main.c` → `SystemClock_Config()` | HSE 8 MHz → PLL(M=8,N=336,P=2)，AHB/1、APB1/4、APB2/2，Flash 5 WS |
-| 按键输入控制 LED3~LED6 正转逐一点亮 | `main.c` → `Key_Scan()` / `Led_Marquee_Step()` | B1(PA0) 扫描 + 20 ms 消抖；按一次启动/停止；运行中每 200 ms 正转点亮点亮 LED3→LED4→LED5→LED6 |
+| 按键输入控制 LED3~LED6 正转逐一点亮 | `main.c` → `Key_Scan()` / `Led_Marquee_Step()` | B1(PA0) 扫描 + 20 ms 消抖；按一次启动/停止；运行中每 200 ms 顺时针点亮 LD3(上)→LD5(右)→LD6(下)→LD4(左) |
 | 串口 9600、1 停止位、8 数据位 | `Core/Src/usart.c` → `MX_USART2_UART_Init()` | USART2：9600-8-N-1，无硬件流控，PA2=TX、PA3=RX |
 | 秒信号中断中把 RTC 时间转成字符串经串口发送 | `Core/Src/rtc.c` + `Core/Src/stm32f4xx_it.c` | RTC 时钟源 LSI，WakeUp Timer 1 Hz 中断；中断内读时间→`snprintf` 格式化→置标志，主循环发送 |
 
 附加（对应任务书“串行数据传输测试”）：串口接收中断 + 逐字节回显，在串口助手中
 发送任意字符即可收到相同字符。
+
+---
+
+### LED 物理排布（跑马灯为什么按位置排序）
+
+四颗 LED 在板上呈菱形排列：
+
+```
+            LD3 (PD13)
+ LD4 (PD12)          LD5 (PD14)
+            LD6 (PD15)
+```
+
+按名字 LED3→LED4→LED5→LED6 点亮是「上→左→右→下」，会看成 **Z 字形**；
+工程里按物理位置绕圈（上→右→下→左）排序，才是平滑的顺时针逐一点亮。
+对应代码：`s_ledRing[4] = {LD3_Pin, LD5_Pin, LD6_Pin, LD4_Pin}`。
 
 ---
 
@@ -114,7 +130,7 @@ main()
  ├─ MX_USART2_UART_Init()          9600-8-N-1，开接收中断
  └─ while(1)
      ├─ Key_Scan()                 消抖；按下沿切换 运行/停止，并 printf("[KEY] ...")
-     ├─ 每 200 ms：Led_Marquee_Step()   LED3→LED4→LED5→LED6 正转
+     ├─ 每 200 ms：Led_Marquee_Step()   顺时针 LD3→LD5→LD6→LD4 绕圈
      └─ g_rtcSecFlag==1 → HAL_UART_Transmit(时间字符串)
 
 RTC_WKUP_IRQHandler (1 Hz)

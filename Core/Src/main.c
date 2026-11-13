@@ -60,9 +60,16 @@ volatile uint32_t m_nRtcHMS    = 0U;
 volatile uint8_t  g_rtcSecFlag = 0U;
 char              g_rtcString[32] = "RTC init\r\n";
 
-/* 跑马灯状态：s_ledIndex 0->LED3, 1->LED4, 2->LED5, 3->LED6 */
-static const uint16_t s_ledPins[4] = {LD3_Pin, LD4_Pin, LD5_Pin, LD6_Pin};
-static uint8_t  s_ledIndex   = 0U;
+/* 跑马灯状态
+ * 四颗 LED 在板上呈菱形排列（不是一排）：
+ *             LD3 (PD13)
+ *   LD4 (PD12)            LD5 (PD14)
+ *             LD6 (PD15)
+ * 按名字 LED3→LED4→LED5→LED6 走是「上→左→右→下」，视觉上成 "Z" 字形；
+ * 按物理位置绕圈（上→右→下→左）才是平滑的顺时针逐一点亮。
+ */
+static const uint16_t s_ledRing[4] = {LD3_Pin, LD5_Pin, LD6_Pin, LD4_Pin};
+static uint8_t  s_ledIndex   = 0U;   /* 0->LD3(上) 1->LD5(右) 2->LD6(下) 3->LD4(左) */
 static uint8_t  s_marqueeRun = 0U;
 static uint32_t s_ledTick    = 0U;
 /* USER CODE END PV */
@@ -247,12 +254,14 @@ static void Led_AllOff(void)
 }
 
 /**
-  * @brief  正转点亮下一个 LED：LED3 -> LED4 -> LED5 -> LED6 -> LED3 ...
+  * @brief  正转点亮下一个 LED（顺时针绕圈）
+  * @note   LD3(上) -> LD5(右) -> LD6(下) -> LD4(左) -> LD3 ...
+  *         按物理位置绕圈，视觉上是平滑的顺时针逐一点亮（不是 Z 字形）
   */
 static void Led_Marquee_Step(void)
 {
   Led_AllOff();
-  HAL_GPIO_WritePin(GPIOD, s_ledPins[s_ledIndex], GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, s_ledRing[s_ledIndex], GPIO_PIN_SET);
 
   s_ledIndex++;
   if (s_ledIndex >= 4U)
